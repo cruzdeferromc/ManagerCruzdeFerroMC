@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CruzdeFerroSecretaria.Library.Integrante">
+    <Position X="8" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAAAAAAAAAAQAAACQAAAAAAAAQAgAEAA=</HashCode>
+      <FileName>Integrante.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Hierarquia" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CruzdeFerroSecretaria.Library.Faccao">
+    <Position X="11" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAQAAAAAAAAACAAEAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Faccao.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="Integrantes" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="CruzdeFerroSecretaria.Library.Reuniao">
+    <Position X="5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAABAAAAAAAAAAAAACAAABACAAAAAAQAAAA=</HashCode>
+      <FileName>Reuniao.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="Participantes" />
+      <Field Name="Eventos" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="CruzdeFerroSecretaria.Library.Evento">
+    <Position X="2" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAIQAAAAAAAAAAAAAACAAAAEAAA=</HashCode>
+      <FileName>Evento.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="CruzdeFerroSecretaria.Library.EscudoEnum">
+    <Position X="8" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAQAIACAAgAAAAAAQAAAAAAAAAAA=</HashCode>
+      <FileName>EscudoEnum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
