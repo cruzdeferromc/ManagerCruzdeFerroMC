@@ -18,6 +18,11 @@ namespace CF_Secretaria
             InitializeComponent();
             //pnFormEventos.Visible = false;
             //pnEventosList.Visible = true;
+
+            abaList.Show();
+
+            grEventos.DataSource = new EventoDAO().GetAllEventos();
+            
         }
 
         protected void btnSalvar_Click(object sender, EventArgs e)
@@ -29,36 +34,38 @@ namespace CF_Secretaria
 
             new EventoDAO().SalvarEvento(oEvento);
 
-            pnFormEventos.Visible = false;
-            
+            abaList.Show();
+                        
         }
 
         protected void btnNovo_Click(object sender, EventArgs e)
         {
-            pnEventosList.Visible = false;
-            pnFormEventos.Visible = true;
-            
+            //pnEventosList.Visible = false;
+            //pnFormEventos.Visible = true;
+
+            abaForm.Show();
 
             txtMotoclube.Text = 
             dtFinal.Text = 
-            dtInicio.Text = string.Empty;
-
-            
+            dtInicio.Text = string.Empty;            
         }
 
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
-            pnEventosList.Visible = false;
-            pnFormEventos.Visible = true;
+            abaList.Show();
         }
 
         protected void btnEditar_Click(object sender, EventArgs e)
         {
-            //Evento oEvento = new Evento(grEventos.SelectedRows);
+            List<Evento> oListEventos = new List<Evento>();
+            oListEventos = ((List<Evento>)grEventos.DataSource);
+            Evento oEventos = oListEventos[grEventos.SelectedRows[0].Index];
+
+            abaForm.Show();
+
+            txtMotoclube.Text = oEventos.MotoClube;
+            dtFinal.Value = oEventos.DataFim;
+            dtInicio.Value = oEventos.DataInicio;
         }
-
-       
-
-
     }
 }
