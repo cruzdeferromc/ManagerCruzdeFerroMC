@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CruzdeFerroSecretaria.Library
 {
-    class Endereco
+    public class Endereco
     {
         public string Cidade { get; set; }
         public string Logradouro { get; set; }

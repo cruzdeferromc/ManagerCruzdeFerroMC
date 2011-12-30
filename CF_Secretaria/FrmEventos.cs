@@ -13,13 +13,13 @@ namespace CF_Secretaria
 {
     public partial class FrmEvento : Form
     {
+
+        Evento oEvento = new Evento();
         public FrmEvento()
         {
             InitializeComponent();
-            //pnFormEventos.Visible = false;
-            //pnEventosList.Visible = true;
 
-            abaList.Show();
+            tabControl.SelectedIndex = 0;
 
             grEventos.DataSource = new EventoDAO().GetAllEventos();
             
@@ -27,45 +27,77 @@ namespace CF_Secretaria
 
         protected void btnSalvar_Click(object sender, EventArgs e)
         {
-            Evento oEvento = new Evento();
+            
             oEvento.DataFim = Convert.ToDateTime(dtFinal.Value);
             oEvento.DataInicio = Convert.ToDateTime(dtFinal.Value);
             oEvento.MotoClube = txtMotoclube.Text;
+            oEvento.Entrada = txtEntrada.Text;
+
+            Endereco oEndereco = new Endereco();
+            oEndereco.CEP = txtCep.Text;
+            oEndereco.Cidade = txtCidade.Text;
+            oEndereco.Estado = txtEstado.Text;
+            oEndereco.Logradouro = txtLogradouro.Text;
+
+            oEvento.oEndereco = oEndereco;
 
             new EventoDAO().SalvarEvento(oEvento);
 
-            abaList.Show();
+            MessageBox.Show("Evento Salvo com Sucesso!");
+
+            tabControl.SelectedIndex = 0;
                         
         }
 
         protected void btnNovo_Click(object sender, EventArgs e)
         {
-            //pnEventosList.Visible = false;
-            //pnFormEventos.Visible = true;
+            tabControl.SelectedIndex = 1;
 
-            abaForm.Show();
+            oEvento = new Evento();
 
-            txtMotoclube.Text = 
-            dtFinal.Text = 
-            dtInicio.Text = string.Empty;            
+            txtMotoclube.Text =
+            dtFinal.Text =
+            txtCep.Text =
+            txtCidade.Text =
+            txtEntrada.Text =
+            txtEstado.Text =
+            txtLogradouro.Text =
+            dtInicio.Text = string.Empty;
         }
 
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
-            abaList.Show();
+            tabControl.SelectedIndex = 0;            
         }
 
         protected void btnEditar_Click(object sender, EventArgs e)
         {
             List<Evento> oListEventos = new List<Evento>();
             oListEventos = ((List<Evento>)grEventos.DataSource);
-            Evento oEventos = oListEventos[grEventos.SelectedRows[0].Index];
+            oEvento = oListEventos[grEventos.SelectedRows[0].Index];
 
-            abaForm.Show();
+            tabControl.SelectedIndex = 1;
 
-            txtMotoclube.Text = oEventos.MotoClube;
-            dtFinal.Value = oEventos.DataFim;
-            dtInicio.Value = oEventos.DataInicio;
+            txtMotoclube.Text = oEvento.MotoClube;
+            dtFinal.Value = oEvento.DataFim;
+            dtInicio.Value = oEvento.DataInicio;
+            txtCep.Text = oEvento.oEndereco.CEP;
+            txtCidade.Text = oEvento.oEndereco.Cidade;
+            txtEntrada.Text = oEvento.Entrada;
+            txtEstado.Text = oEvento.oEndereco.Estado;
+            txtLogradouro.Text = oEvento.oEndereco.Logradouro;
         }
+
+        private void btnExcluir_Click(object sender, EventArgs e)
+        {
+            List<Evento> oListEventos = new List<Evento>();
+            oListEventos = ((List<Evento>)grEventos.DataSource);
+            oEvento = oListEventos[grEventos.SelectedRows[0].Index];
+
+            new EventoDAO().ExcluirEvento(oEvento);
+
+            MessageBox.Show("Evento Excluido com Sucesso!");
+        }
+
     }
 }

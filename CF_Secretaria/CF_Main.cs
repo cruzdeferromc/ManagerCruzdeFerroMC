@@ -26,5 +26,11 @@ namespace CF_Secretaria
             FrmEvento oFrmEvento = new FrmEvento();
             oFrmEvento.Show();
         }
+
+        private void iNTEGRANTESToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmIntegrante oFrmIntegrante = new FrmIntegrante();
+            oFrmIntegrante.Show();
+        }
     }
 }

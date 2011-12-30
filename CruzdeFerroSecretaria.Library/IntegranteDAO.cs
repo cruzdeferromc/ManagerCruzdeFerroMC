@@ -6,15 +6,15 @@ using System.Data.SqlClient;
 
 namespace CruzdeFerroSecretaria.Library
 {
-    public class EventoDAO
+    public class IntegranteDAO
     {
-        #region METHODS EVENTOS
+        #region METHODS INTEGRANTES
         /// <summary>
-        /// EVENTOS
-        /// Salvando os Eventos
+        /// INTEGRANTES
+        /// Salvando os Integrantes
         /// </summary>
-        /// <param name="oEvento">Objeto de Evento</param>
-        public void SalvarEvento(Evento oEvento)
+        /// <param name="oIntegrante">Objeto de Integrante</param>
+        public void SalvarEvento(Integrante oIntegrante)
         {
             //Conexao
             SqlConnection oSqlConnection = new SqlConnection("packet size=4096;persist security info=TRUE;initial catalog=CF_Secretaria;user id=sa;password=123456;data source=LOVIEIRA-PC\\SQL_SOLUTIO42");
@@ -23,12 +23,12 @@ namespace CruzdeFerroSecretaria.Library
             SqlCommand oSqlCommand = new SqlCommand();
 
             //Sql de update dos Eventos
-            if (oEvento.EventoID != 0)
+            if (oIntegrante.IntegranteID != 0)
             {
                 oSqlCommand = new SqlCommand(String.Format("UPDATE cfEvento SET cfEventoMotoClube = '{0}', cfEventoDataFim = '{1}', cfEventoDataInicio = '{2}',cfEventoCidade = '{4}',cfEventoLogradouro = '{5}',cfEventoCep = '{6}',cfEventoEstado = '{7}',cfEventoEntrada = '{8}'WHERE cfEventoID = {3}", oEvento.MotoClube, oEvento.DataFim.ToString("dd/MM/yyyy"), oEvento.DataInicio.ToString("dd/MM/yyyy"), oEvento.EventoID, oEvento.oEndereco.Cidade, oEvento.oEndereco.Logradouro, oEvento.oEndereco.CEP, oEvento.oEndereco.Estado, oEvento.Entrada), oSqlConnection);
             }
             //Sql de Inserção dos Eventos
-            else 
+            else
             {
                 oSqlCommand = new SqlCommand(String.Format("INSERT INTO cfEvento VALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}')", oEvento.MotoClube, oEvento.DataInicio.ToString("dd/MM/yyyy"), oEvento.DataFim.ToString("dd/MM/yyyy"), oEvento.oEndereco.Cidade, oEvento.oEndereco.Logradouro, oEvento.oEndereco.CEP, oEvento.oEndereco.Estado, oEvento.Entrada), oSqlConnection);
             }
@@ -47,7 +47,7 @@ namespace CruzdeFerroSecretaria.Library
             //Conexao
             SqlConnection oSqlConnection = new SqlConnection("packet size=4096;persist security info=TRUE;initial catalog=CF_Secretaria;user id=sa;password=123456;data source=LOVIEIRA-PC\\SQL_SOLUTIO42");
             oSqlConnection.Open();
-            
+
             //Sql de busca dos Eventos
             SqlCommand oSqlCommand = new SqlCommand("SELECT * FROM cfEvento", oSqlConnection);
             SqlDataReader oReader = oSqlCommand.ExecuteReader();
@@ -55,7 +55,7 @@ namespace CruzdeFerroSecretaria.Library
             //Retornando os Eventos
             List<Evento> oListEventos = new List<Evento>();
             while (oReader.Read())
-            { 
+            {
                 Evento oEvento = new Evento();
                 oEvento.oEndereco = new Endereco();
                 oEvento.DataInicio = Convert.ToDateTime(oReader["cfEventoDataInicio"].ToString());

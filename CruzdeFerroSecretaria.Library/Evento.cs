@@ -33,5 +33,17 @@ namespace CruzdeFerroSecretaria.Library
             get;
             set;
         }
+
+        public Endereco oEndereco
+        {
+            get;
+            set;
+        }
+
+        public string Entrada
+        {
+            get;
+            set;
+        }
     }
 }

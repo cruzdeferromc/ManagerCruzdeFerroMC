@@ -10,7 +10,7 @@ namespace CruzdeFerroSecretaria.Library
         public int IntegranteID { get; set; }
         public string Name { get; set; }
         public EscudoEnum Hierarquia { get; set; }
-        //public Endereco oEndereco { get; set; }
+        public Endereco oEndereco { get; set; }
         public string Celular { get; set; }
         public string Telefone { get; set; }
         public string Foto { get; set; }        

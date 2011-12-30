@@ -70,6 +70,7 @@
             this.iNTEGRANTESToolStripMenuItem.Name = "iNTEGRANTESToolStripMenuItem";
             this.iNTEGRANTESToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.iNTEGRANTESToolStripMenuItem.Text = "INTEGRANTES";
+            this.iNTEGRANTESToolStripMenuItem.Click += new System.EventHandler(this.iNTEGRANTESToolStripMenuItem_Click);
             // 
             // eVENTOSToolStripMenuItem
             // 
