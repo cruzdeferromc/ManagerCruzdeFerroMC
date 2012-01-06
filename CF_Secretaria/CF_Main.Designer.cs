@@ -62,20 +62,21 @@
             // fACÇÕESToolStripMenuItem
             // 
             this.fACÇÕESToolStripMenuItem.Name = "fACÇÕESToolStripMenuItem";
-            this.fACÇÕESToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.fACÇÕESToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.fACÇÕESToolStripMenuItem.Text = "FACÇÕES";
+            this.fACÇÕESToolStripMenuItem.Click += new System.EventHandler(this.fACÇÕESToolStripMenuItem_Click);
             // 
             // iNTEGRANTESToolStripMenuItem
             // 
             this.iNTEGRANTESToolStripMenuItem.Name = "iNTEGRANTESToolStripMenuItem";
-            this.iNTEGRANTESToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.iNTEGRANTESToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.iNTEGRANTESToolStripMenuItem.Text = "INTEGRANTES";
             this.iNTEGRANTESToolStripMenuItem.Click += new System.EventHandler(this.iNTEGRANTESToolStripMenuItem_Click);
             // 
             // eVENTOSToolStripMenuItem
             // 
             this.eVENTOSToolStripMenuItem.Name = "eVENTOSToolStripMenuItem";
-            this.eVENTOSToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.eVENTOSToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.eVENTOSToolStripMenuItem.Text = "EVENTOS";
             this.eVENTOSToolStripMenuItem.Click += new System.EventHandler(this.eVENTOSToolStripMenuItem_Click);
             // 
@@ -84,6 +85,7 @@
             this.rEUNIÃOToolStripMenuItem.Name = "rEUNIÃOToolStripMenuItem";
             this.rEUNIÃOToolStripMenuItem.Size = new System.Drawing.Size(42, 20);
             this.rEUNIÃOToolStripMenuItem.Text = "ATA";
+            this.rEUNIÃOToolStripMenuItem.Click += new System.EventHandler(this.rEUNIÃOToolStripMenuItem_Click);
             // 
             // CF_Main
             // 

@@ -16,11 +16,6 @@ namespace CF_Secretaria
             InitializeComponent();
         }
 
-        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
-        {
-
-        }
-
         private void eVENTOSToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FrmEvento oFrmEvento = new FrmEvento();
@@ -31,6 +26,18 @@ namespace CF_Secretaria
         {
             FrmIntegrante oFrmIntegrante = new FrmIntegrante();
             oFrmIntegrante.Show();
+        }
+
+        private void fACÇÕESToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmFaccao oFrmFacao = new FrmFaccao();
+            oFrmFacao.Show();
+        }
+
+        private void rEUNIÃOToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmAta oFrmAta = new FrmAta();
+            oFrmAta.Show();
         }
     }
 }

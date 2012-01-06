@@ -7,9 +7,16 @@ namespace CruzdeFerroSecretaria.Library
 {
     public class Faccao
     {
-        private int FaccaoID;
-        private string Cidade;
-        private string Email;
-        private System.Collections.Generic.List<CruzdeFerroSecretaria.Library.Integrante> Integrantes;
+        public int FaccaoID { get; set; }
+        public string Email { get; set; }
+        public bool PossuiSede { get; set; }
+        public Endereco EnderecoSede { get; set; }
+        public string FaccaoNome
+        {
+            get
+            {
+                return ("Facção " + EnderecoSede.Cidade);
+            }
+        }
     }
 }

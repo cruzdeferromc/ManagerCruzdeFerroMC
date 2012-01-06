@@ -36,6 +36,9 @@
             this.txtLogradouro = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.abaForm = new System.Windows.Forms.TabPage();
+            this.txtTelefone = new System.Windows.Forms.TextBox();
+            this.txtCelular = new System.Windows.Forms.TextBox();
+            this.cbHierarquia = new System.Windows.Forms.ComboBox();
             this.txtCidade = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -52,9 +55,8 @@
             this.btnEditar = new System.Windows.Forms.Button();
             this.btnNovo = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
-            this.cbHierarquia = new System.Windows.Forms.ComboBox();
-            this.txtCelular = new System.Windows.Forms.TextBox();
-            this.txtTelefone = new System.Windows.Forms.TextBox();
+            this.cbFaccao = new System.Windows.Forms.ComboBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.abaForm.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grEventos)).BeginInit();
             this.tabControl.SuspendLayout();
@@ -128,6 +130,8 @@
             // 
             // abaForm
             // 
+            this.abaForm.Controls.Add(this.cbFaccao);
+            this.abaForm.Controls.Add(this.label11);
             this.abaForm.Controls.Add(this.txtTelefone);
             this.abaForm.Controls.Add(this.txtCelular);
             this.abaForm.Controls.Add(this.cbHierarquia);
@@ -153,6 +157,38 @@
             this.abaForm.Size = new System.Drawing.Size(582, 408);
             this.abaForm.TabIndex = 1;
             this.abaForm.UseVisualStyleBackColor = true;
+            // 
+            // txtTelefone
+            // 
+            this.txtTelefone.Location = new System.Drawing.Point(302, 91);
+            this.txtTelefone.Margin = new System.Windows.Forms.Padding(2);
+            this.txtTelefone.Name = "txtTelefone";
+            this.txtTelefone.Size = new System.Drawing.Size(260, 21);
+            this.txtTelefone.TabIndex = 28;
+            // 
+            // txtCelular
+            // 
+            this.txtCelular.Location = new System.Drawing.Point(18, 91);
+            this.txtCelular.Margin = new System.Windows.Forms.Padding(2);
+            this.txtCelular.Name = "txtCelular";
+            this.txtCelular.Size = new System.Drawing.Size(260, 21);
+            this.txtCelular.TabIndex = 27;
+            // 
+            // cbHierarquia
+            // 
+            this.cbHierarquia.FormattingEnabled = true;
+            this.cbHierarquia.Items.AddRange(new object[] {
+            "Selecione:",
+            "Prospero",
+            "Meio Escudo",
+            "Fechado",
+            "Fechado Tesoureiro",
+            "Fechado Secretario",
+            "Fechado Diretor"});
+            this.cbHierarquia.Location = new System.Drawing.Point(301, 53);
+            this.cbHierarquia.Name = "cbHierarquia";
+            this.cbHierarquia.Size = new System.Drawing.Size(260, 21);
+            this.cbHierarquia.TabIndex = 26;
             // 
             // txtCidade
             // 
@@ -316,7 +352,7 @@
             this.btnNovo.TabIndex = 12;
             this.btnNovo.Text = "NOVO";
             this.btnNovo.UseVisualStyleBackColor = true;
-            this.btnNovo.Click += new System.EventHandler(this.btnNovo_Click_1);
+            this.btnNovo.Click += new System.EventHandler(this.btnNovo_Click);
             // 
             // label5
             // 
@@ -330,10 +366,10 @@
             this.label5.Text = "Modulo de gerenciamento de integrantes, controle de cadastro, edições e exclusão " +
                 "de integrantes";
             // 
-            // cbHierarquia
+            // cbFaccao
             // 
-            this.cbHierarquia.FormattingEnabled = true;
-            this.cbHierarquia.Items.AddRange(new object[] {
+            this.cbFaccao.FormattingEnabled = true;
+            this.cbFaccao.Items.AddRange(new object[] {
             "Selecione:",
             "Prospero",
             "Meio Escudo",
@@ -341,26 +377,20 @@
             "Fechado Tesoureiro",
             "Fechado Secretario",
             "Fechado Diretor"});
-            this.cbHierarquia.Location = new System.Drawing.Point(301, 53);
-            this.cbHierarquia.Name = "cbHierarquia";
-            this.cbHierarquia.Size = new System.Drawing.Size(260, 21);
-            this.cbHierarquia.TabIndex = 26;
+            this.cbFaccao.Location = new System.Drawing.Point(19, 210);
+            this.cbFaccao.Name = "cbFaccao";
+            this.cbFaccao.Size = new System.Drawing.Size(260, 21);
+            this.cbFaccao.TabIndex = 30;
             // 
-            // txtCelular
+            // label11
             // 
-            this.txtCelular.Location = new System.Drawing.Point(18, 91);
-            this.txtCelular.Margin = new System.Windows.Forms.Padding(2);
-            this.txtCelular.Name = "txtCelular";
-            this.txtCelular.Size = new System.Drawing.Size(260, 21);
-            this.txtCelular.TabIndex = 27;
-            // 
-            // txtTelefone
-            // 
-            this.txtTelefone.Location = new System.Drawing.Point(302, 91);
-            this.txtTelefone.Margin = new System.Windows.Forms.Padding(2);
-            this.txtTelefone.Name = "txtTelefone";
-            this.txtTelefone.Size = new System.Drawing.Size(260, 21);
-            this.txtTelefone.TabIndex = 28;
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(17, 195);
+            this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(46, 13);
+            this.label11.TabIndex = 29;
+            this.label11.Text = "Facção";
             // 
             // FrmIntegrante
             // 
@@ -412,6 +442,8 @@
         private System.Windows.Forms.ComboBox cbHierarquia;
         private System.Windows.Forms.TextBox txtTelefone;
         private System.Windows.Forms.TextBox txtCelular;
+        private System.Windows.Forms.ComboBox cbFaccao;
+        private System.Windows.Forms.Label label11;
 
 
     }

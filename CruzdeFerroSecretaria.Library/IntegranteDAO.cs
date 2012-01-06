@@ -14,7 +14,7 @@ namespace CruzdeFerroSecretaria.Library
         /// Salvando os Integrantes
         /// </summary>
         /// <param name="oIntegrante">Objeto de Integrante</param>
-        public void SalvarEvento(Integrante oIntegrante)
+        public void SalvarIntegrante(Integrante oIntegrante)
         {
             //Conexao
             SqlConnection oSqlConnection = new SqlConnection("packet size=4096;persist security info=TRUE;initial catalog=CF_Secretaria;user id=sa;password=123456;data source=LOVIEIRA-PC\\SQL_SOLUTIO42");
@@ -25,12 +25,12 @@ namespace CruzdeFerroSecretaria.Library
             //Sql de update dos Eventos
             if (oIntegrante.IntegranteID != 0)
             {
-                oSqlCommand = new SqlCommand(String.Format("UPDATE cfEvento SET cfEventoMotoClube = '{0}', cfEventoDataFim = '{1}', cfEventoDataInicio = '{2}',cfEventoCidade = '{4}',cfEventoLogradouro = '{5}',cfEventoCep = '{6}',cfEventoEstado = '{7}',cfEventoEntrada = '{8}'WHERE cfEventoID = {3}", oEvento.MotoClube, oEvento.DataFim.ToString("dd/MM/yyyy"), oEvento.DataInicio.ToString("dd/MM/yyyy"), oEvento.EventoID, oEvento.oEndereco.Cidade, oEvento.oEndereco.Logradouro, oEvento.oEndereco.CEP, oEvento.oEndereco.Estado, oEvento.Entrada), oSqlConnection);
+                oSqlCommand = new SqlCommand(String.Format("UPDATE cfIntegrante SET cfIntegranteName = '{0}', cfIntegranteHierarquia = {1}, cfIntegranteCidade = '{2}', cfIntegranteLogradouro = '{3}', cfIntegranteCep = '{4}', cfIntegranteEstado = '{5}', cfIntegranteCelular = '{6}', cfIntegranteTelefone = '{7}', cfIntegranteFoto = '{8}', cfIntegrante_cfFaccaoID = {10}  WHERE cfIntegranteID = {9}", oIntegrante.Name, (short)oIntegrante.Hierarquia, oIntegrante.oEndereco.Cidade, oIntegrante.oEndereco.Logradouro, oIntegrante.oEndereco.CEP, oIntegrante.oEndereco.Estado, oIntegrante.Celular, oIntegrante.Telefone, oIntegrante.Foto, oIntegrante.IntegranteID, oIntegrante.oFaccao.FaccaoID), oSqlConnection);
             }
             //Sql de Inserção dos Eventos
             else
             {
-                oSqlCommand = new SqlCommand(String.Format("INSERT INTO cfEvento VALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}')", oEvento.MotoClube, oEvento.DataInicio.ToString("dd/MM/yyyy"), oEvento.DataFim.ToString("dd/MM/yyyy"), oEvento.oEndereco.Cidade, oEvento.oEndereco.Logradouro, oEvento.oEndereco.CEP, oEvento.oEndereco.Estado, oEvento.Entrada), oSqlConnection);
+                oSqlCommand = new SqlCommand(String.Format("INSERT INTO cfIntegrante VALUES('{0}',{1},'{2}','{3}','{4}','{5}','{6}','{7}','{8}',{9})", oIntegrante.Name, (short)oIntegrante.Hierarquia, oIntegrante.oEndereco.Cidade, oIntegrante.oEndereco.Logradouro, oIntegrante.oEndereco.CEP, oIntegrante.oEndereco.Estado, oIntegrante.Celular, oIntegrante.Telefone, oIntegrante.Foto, oIntegrante.oFaccao.FaccaoID), oSqlConnection);
             }
             oSqlCommand.ExecuteNonQuery();
 
@@ -38,59 +38,104 @@ namespace CruzdeFerroSecretaria.Library
         }
 
         /// <summary>
-        /// EVENTOS
-        /// GetAll Eventos
+        /// INTEGRANTES
+        /// GetAll Integrantes
         /// </summary>
-        /// <returns>Lista de Eventos Retornados</returns>
-        public List<Evento> GetAllEventos()
+        /// <returns>Lista de Integrantes Retornados</returns>
+        public List<Integrante> GetAllIntegrantes()
         {
             //Conexao
             SqlConnection oSqlConnection = new SqlConnection("packet size=4096;persist security info=TRUE;initial catalog=CF_Secretaria;user id=sa;password=123456;data source=LOVIEIRA-PC\\SQL_SOLUTIO42");
             oSqlConnection.Open();
 
-            //Sql de busca dos Eventos
-            SqlCommand oSqlCommand = new SqlCommand("SELECT * FROM cfEvento", oSqlConnection);
+            //Sql de busca dos Integrantes
+            SqlCommand oSqlCommand = new SqlCommand("SELECT * FROM cfIntegrante", oSqlConnection);
             SqlDataReader oReader = oSqlCommand.ExecuteReader();
 
-            //Retornando os Eventos
-            List<Evento> oListEventos = new List<Evento>();
+            //Retornando os Integrantes
+            List<Integrante> oListIntegrantes = new List<Integrante>();
             while (oReader.Read())
             {
-                Evento oEvento = new Evento();
-                oEvento.oEndereco = new Endereco();
-                oEvento.DataInicio = Convert.ToDateTime(oReader["cfEventoDataInicio"].ToString());
-                oEvento.DataFim = Convert.ToDateTime(oReader["cfEventoDataFim"].ToString());
-                oEvento.EventoID = Convert.ToInt32(oReader["cfEventoID"].ToString());
-                oEvento.MotoClube = oReader["cfEventoMotoClube"].ToString();
-                oEvento.Entrada = oReader["cfEventoEntrada"].ToString();
-                oEvento.oEndereco.CEP = oReader["cfEventoCep"].ToString();
-                oEvento.oEndereco.Cidade = oReader["cfEventoCidade"].ToString();
-                oEvento.oEndereco.Estado = oReader["cfEventoEstado"].ToString();
-                oEvento.oEndereco.Logradouro = oReader["cfEventoLogradouro"].ToString();
+                Integrante oIntegrante = new Integrante();
+                oIntegrante.oFaccao = new Faccao();
+                oIntegrante.oEndereco = new Endereco();
+                oIntegrante.Celular = oReader["cfIntegranteCelular"].ToString();
+                oIntegrante.Foto = oReader["cfIntegranteFoto"].ToString();
+                oIntegrante.Hierarquia = (EscudoEnum)(Convert.ToInt16(oReader["cfIntegranteHierarquia"].ToString()));
+                oIntegrante.IntegranteID = Convert.ToInt32(oReader["cfIntegranteID"].ToString());
+                oIntegrante.Name = oReader["cfIntegranteName"].ToString();
+                oIntegrante.oEndereco.CEP = oReader["cfIntegranteCep"].ToString();
+                oIntegrante.oEndereco.Cidade = oReader["cfIntegranteCidade"].ToString();
+                oIntegrante.oEndereco.Estado = oReader["cfIntegranteEstado"].ToString();
+                oIntegrante.oEndereco.Logradouro = oReader["cfIntegranteLogradouro"].ToString();
+                oIntegrante.Telefone = oReader["cfIntegranteTelefone"].ToString();
+                oIntegrante.oFaccao.FaccaoID = Convert.ToInt32(oReader["cfIntegrante_cfFaccaoID"].ToString());
 
-
-                oListEventos.Add(oEvento);
+                oListIntegrantes.Add(oIntegrante);
             }
 
             oReader.Close();
             oSqlConnection.Close();
 
-            return oListEventos;
+            return oListIntegrantes;
         }
 
         /// <summary>
-        /// EVENTOS
-        /// Excluir Evento
+        /// INTEGRANTES
+        /// GetAll Integrantes
         /// </summary>
-        /// <param name="oEvento">Objeto de Evento</param>
-        public void ExcluirEvento(Evento oEvento)
+        /// <returns>Lista de Integrantes Retornados</returns>
+        public List<Integrante> GetAllIntegrantesbyFaccao(int faccaoid)
         {
             //Conexao
             SqlConnection oSqlConnection = new SqlConnection("packet size=4096;persist security info=TRUE;initial catalog=CF_Secretaria;user id=sa;password=123456;data source=LOVIEIRA-PC\\SQL_SOLUTIO42");
             oSqlConnection.Open();
 
-            //Sql de excluir dos Eventos
-            SqlCommand oSqlCommand = new SqlCommand(String.Format("DELETE FROM cfEvento WHERE cfEventoID = {0}", oEvento.EventoID), oSqlConnection);
+            //Sql de busca dos Integrantes
+            SqlCommand oSqlCommand = new SqlCommand(string.Format("SELECT * FROM cfIntegrante WHERE cfIntegrante_cfFaccaoID = {0}", faccaoid), oSqlConnection);
+            SqlDataReader oReader = oSqlCommand.ExecuteReader();
+
+            //Retornando os Integrantes
+            List<Integrante> oListIntegrantes = new List<Integrante>();
+            while (oReader.Read())
+            {
+                Integrante oIntegrante = new Integrante();
+                oIntegrante.oFaccao = new Faccao();
+                oIntegrante.oEndereco = new Endereco();
+                oIntegrante.Celular = oReader["cfIntegranteCelular"].ToString();
+                oIntegrante.Foto = oReader["cfIntegranteFoto"].ToString();
+                oIntegrante.Hierarquia = (EscudoEnum)(Convert.ToInt16(oReader["cfIntegranteHierarquia"].ToString()));
+                oIntegrante.IntegranteID = Convert.ToInt32(oReader["cfIntegranteID"].ToString());
+                oIntegrante.Name = oReader["cfIntegranteName"].ToString();
+                oIntegrante.oEndereco.CEP = oReader["cfIntegranteCep"].ToString();
+                oIntegrante.oEndereco.Cidade = oReader["cfIntegranteCidade"].ToString();
+                oIntegrante.oEndereco.Estado = oReader["cfIntegranteEstado"].ToString();
+                oIntegrante.oEndereco.Logradouro = oReader["cfIntegranteLogradouro"].ToString();
+                oIntegrante.Telefone = oReader["cfIntegranteTelefone"].ToString();
+                oIntegrante.oFaccao.FaccaoID = Convert.ToInt32(oReader["cfIntegrante_cfFaccaoID"].ToString());
+
+                oListIntegrantes.Add(oIntegrante);
+            }
+
+            oReader.Close();
+            oSqlConnection.Close();
+
+            return oListIntegrantes;
+        }
+
+        /// <summary>
+        /// INTEGRANTES
+        /// Excluir Integrante
+        /// </summary>
+        /// <param name="oIntegrante">Objeto de Integrante</param>
+        public void ExcluirIntegrante(Integrante oIntegrante)
+        {
+            //Conexao
+            SqlConnection oSqlConnection = new SqlConnection("packet size=4096;persist security info=TRUE;initial catalog=CF_Secretaria;user id=sa;password=123456;data source=LOVIEIRA-PC\\SQL_SOLUTIO42");
+            oSqlConnection.Open();
+
+            //Sql de excluir dos Integrantes
+            SqlCommand oSqlCommand = new SqlCommand(String.Format("DELETE FROM cfIntegrante WHERE cfIntegranteID = {0}", oIntegrante.IntegranteID), oSqlConnection);
 
             oSqlCommand.ExecuteNonQuery();
 

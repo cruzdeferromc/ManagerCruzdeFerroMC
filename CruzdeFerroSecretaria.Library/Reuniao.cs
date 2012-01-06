@@ -7,11 +7,11 @@ namespace CruzdeFerroSecretaria.Library
 {
     public class Reuniao
     {
-        private int ReuniaoID;
-        private DateTime Data;
-        private List<Integrante> Participantes;
-        private List<Evento> Eventos;
-        private string Avisos;
-        private string AtaFinal;
+        public int ReuniaoID { get; set; }
+        public DateTime Data { get; set; }
+        public List<Integrante> Participantes { get; set; }
+        public List<Evento> Eventos { get; set; }
+        public List<string> Avisos { get; set; }
+        public string AtaFinal { get; set; }
     }
 }

@@ -1,45 +1,54 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="CruzdeFerroSecretaria.Library.Integrante">
-    <Position X="8" Y="4" Width="1.5" />
+    <Position X="5" Y="4.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAgAAAAAAAAAAAAAQAAACQAAAAAAAAQAgAEAA=</HashCode>
+      <HashCode>AAAAAAAAgAAAAAAAAAAABAQAAACQAAAAAAAAQAgCAAA=</HashCode>
       <FileName>Integrante.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Hierarquia" />
+      <Property Name="oFaccao" />
+      <Property Name="oEndereco" />
     </ShowAsAssociation>
   </Class>
   <Class Name="CruzdeFerroSecretaria.Library.Faccao">
-    <Position X="11" Y="4.25" Width="1.5" />
+    <Position X="8" Y="4.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAACAAQAAAAAAAAACAAEAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAACAAQAAAAAAAAAAAACAIAAAAAAAEAAAAAAA=</HashCode>
       <FileName>Faccao.cs</FileName>
     </TypeIdentifier>
-    <ShowAsCollectionAssociation>
-      <Field Name="Integrantes" />
-    </ShowAsCollectionAssociation>
   </Class>
   <Class Name="CruzdeFerroSecretaria.Library.Reuniao">
-    <Position X="5" Y="4.25" Width="1.5" />
+    <Position X="5" Y="1.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAQAABAAAAAAAAAAAAACAAABACAAAAAAQAAAA=</HashCode>
       <FileName>Reuniao.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
-      <Field Name="Participantes" />
-      <Field Name="Eventos" />
+      <Property Name="Participantes" />
+      <Property Name="Eventos" />
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="CruzdeFerroSecretaria.Library.Evento">
-    <Position X="2" Y="4" Width="1.5" />
+    <Position X="2.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAIQAAAAAAAAAAAAAACAAAAEAAA=</HashCode>
+      <HashCode>AAAACAAAAAAAAAAAAAIQAAAAAAAAAAAAAACAAAAGAAA=</HashCode>
       <FileName>Evento.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="oEndereco" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CruzdeFerroSecretaria.Library.Endereco">
+    <Position X="2" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAIAAAAAAACAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Endereco.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Enum Name="CruzdeFerroSecretaria.Library.EscudoEnum">
-    <Position X="8" Y="1.25" Width="1.5" />
+    <Position X="5" Y="7.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAIAAAAAAQAIACAAgAAAAAAQAAAAAAAAAAA=</HashCode>
       <FileName>EscudoEnum.cs</FileName>
