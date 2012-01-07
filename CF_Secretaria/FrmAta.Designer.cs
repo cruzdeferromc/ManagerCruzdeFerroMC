@@ -56,10 +56,12 @@
             this.tbFinal = new System.Windows.Forms.TabPage();
             this.label5 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.dgEventosPassados = new System.Windows.Forms.DataGridView();
-            this.dgEventosProximos = new System.Windows.Forms.DataGridView();
+            this.grEventosPassados = new System.Windows.Forms.DataGridView();
+            this.grEventosProximos = new System.Windows.Forms.DataGridView();
             this.btnGerarAta = new System.Windows.Forms.Button();
             this.rtAtaFinal = new System.Windows.Forms.RichTextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.dtReuniao = new System.Windows.Forms.DateTimePicker();
             this.tbControl.SuspendLayout();
             this.tbList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grEventos)).BeginInit();
@@ -72,8 +74,8 @@
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tbFinal.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgEventosPassados)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgEventosProximos)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grEventosPassados)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grEventosProximos)).BeginInit();
             this.SuspendLayout();
             // 
             // tbControl
@@ -175,6 +177,8 @@
             // 
             // tbPageChamada
             // 
+            this.tbPageChamada.Controls.Add(this.dtReuniao);
+            this.tbPageChamada.Controls.Add(this.label6);
             this.tbPageChamada.Controls.Add(this.cklIntegrantes);
             this.tbPageChamada.Controls.Add(this.label3);
             this.tbPageChamada.Controls.Add(this.cbFaccao);
@@ -209,7 +213,7 @@
             this.cbFaccao.FormattingEnabled = true;
             this.cbFaccao.Location = new System.Drawing.Point(20, 37);
             this.cbFaccao.Name = "cbFaccao";
-            this.cbFaccao.Size = new System.Drawing.Size(942, 21);
+            this.cbFaccao.Size = new System.Drawing.Size(721, 21);
             this.cbFaccao.TabIndex = 1;
             this.cbFaccao.SelectedIndexChanged += new System.EventHandler(this.cbFaccao_SelectedIndexChanged);
             // 
@@ -332,7 +336,7 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.dgEventosProximos);
+            this.groupBox2.Controls.Add(this.grEventosProximos);
             this.groupBox2.Location = new System.Drawing.Point(17, 306);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(954, 271);
@@ -342,7 +346,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.dgEventosPassados);
+            this.groupBox1.Controls.Add(this.grEventosPassados);
             this.groupBox1.Location = new System.Drawing.Point(17, 16);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(954, 275);
@@ -385,21 +389,21 @@
             this.label1.TabIndex = 10;
             this.label1.Text = "GERENCIAMENTO ATA";
             // 
-            // dgEventosPassados
+            // grEventosPassados
             // 
-            this.dgEventosPassados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgEventosPassados.Location = new System.Drawing.Point(6, 19);
-            this.dgEventosPassados.Name = "dgEventosPassados";
-            this.dgEventosPassados.Size = new System.Drawing.Size(942, 250);
-            this.dgEventosPassados.TabIndex = 0;
+            this.grEventosPassados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grEventosPassados.Location = new System.Drawing.Point(6, 19);
+            this.grEventosPassados.Name = "grEventosPassados";
+            this.grEventosPassados.Size = new System.Drawing.Size(942, 250);
+            this.grEventosPassados.TabIndex = 0;
             // 
-            // dgEventosProximos
+            // grEventosProximos
             // 
-            this.dgEventosProximos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgEventosProximos.Location = new System.Drawing.Point(6, 19);
-            this.dgEventosProximos.Name = "dgEventosProximos";
-            this.dgEventosProximos.Size = new System.Drawing.Size(942, 246);
-            this.dgEventosProximos.TabIndex = 1;
+            this.grEventosProximos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grEventosProximos.Location = new System.Drawing.Point(6, 19);
+            this.grEventosProximos.Name = "grEventosProximos";
+            this.grEventosProximos.Size = new System.Drawing.Size(942, 246);
+            this.grEventosProximos.TabIndex = 1;
             // 
             // btnGerarAta
             // 
@@ -417,6 +421,22 @@
             this.rtAtaFinal.Size = new System.Drawing.Size(974, 542);
             this.rtAtaFinal.TabIndex = 1;
             this.rtAtaFinal.Text = "";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(759, 21);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(88, 13);
+            this.label6.TabIndex = 4;
+            this.label6.Text = "Data da Reunião";
+            // 
+            // dtReuniao
+            // 
+            this.dtReuniao.Location = new System.Drawing.Point(762, 34);
+            this.dtReuniao.Name = "dtReuniao";
+            this.dtReuniao.Size = new System.Drawing.Size(200, 20);
+            this.dtReuniao.TabIndex = 5;
             // 
             // FrmAta
             // 
@@ -442,8 +462,8 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.tbFinal.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgEventosPassados)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgEventosProximos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grEventosPassados)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grEventosProximos)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -479,9 +499,11 @@
         private System.Windows.Forms.Button btnAvisoNovo;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.DataGridView dgEventosProximos;
-        private System.Windows.Forms.DataGridView dgEventosPassados;
+        private System.Windows.Forms.DataGridView grEventosProximos;
+        private System.Windows.Forms.DataGridView grEventosPassados;
         private System.Windows.Forms.RichTextBox rtAtaFinal;
         private System.Windows.Forms.Button btnGerarAta;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.DateTimePicker dtReuniao;
     }
 }
