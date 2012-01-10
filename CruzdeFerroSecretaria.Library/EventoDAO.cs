@@ -96,6 +96,59 @@ namespace CruzdeFerroSecretaria.Library
 
             oSqlConnection.Close();
         }
+
+        /// <summary>
+        /// EVENTOS
+        /// Get Eventos by Month
+        /// </summary>
+        /// <returns>Lista de Eventos Retornados</returns>
+        public List<Evento> GetAllEventosByMes(int Mes)
+        {
+            int Ano = DateTime.Now.Year;
+
+            if (Mes < 1)
+            {
+                Mes = 12;
+                Ano = DateTime.Now.Year - 1;
+            }
+
+            //Data Inicial
+            string DataInicial = "01/" + Mes.ToString() + "/" + Ano;
+            string DataFinal = "30/" + Mes.ToString() + "/" + Ano;
+
+            //Conexao
+            SqlConnection oSqlConnection = new SqlConnection("packet size=4096;persist security info=TRUE;initial catalog=CF_Secretaria;user id=sa;password=123456;data source=LOVIEIRA-PC\\SQL_SOLUTIO42");
+            oSqlConnection.Open();
+
+            //Sql de busca dos Eventos
+            SqlCommand oSqlCommand = new SqlCommand(string.Format("SELECT * FROM cfEvento WHERE cfEventoDataInicio >= '{0}' AND cfEventoDataInicio <= '{1}'", Convert.ToDateTime(DataInicial), Convert.ToDateTime(DataFinal)), oSqlConnection);
+            SqlDataReader oReader = oSqlCommand.ExecuteReader();
+
+            //Retornando os Eventos
+            List<Evento> oListEventos = new List<Evento>();
+            while (oReader.Read())
+            {
+                Evento oEvento = new Evento();
+                oEvento.oEndereco = new Endereco();
+                oEvento.DataInicio = Convert.ToDateTime(oReader["cfEventoDataInicio"].ToString());
+                oEvento.DataFim = Convert.ToDateTime(oReader["cfEventoDataFim"].ToString());
+                oEvento.EventoID = Convert.ToInt32(oReader["cfEventoID"].ToString());
+                oEvento.MotoClube = oReader["cfEventoMotoClube"].ToString();
+                oEvento.Entrada = oReader["cfEventoEntrada"].ToString();
+                oEvento.oEndereco.CEP = oReader["cfEventoCep"].ToString();
+                oEvento.oEndereco.Cidade = oReader["cfEventoCidade"].ToString();
+                oEvento.oEndereco.Estado = oReader["cfEventoEstado"].ToString();
+                oEvento.oEndereco.Logradouro = oReader["cfEventoLogradouro"].ToString();
+
+
+                oListEventos.Add(oEvento);
+            }
+
+            oReader.Close();
+            oSqlConnection.Close();
+
+            return oListEventos;
+        }
         #endregion
     }
 }

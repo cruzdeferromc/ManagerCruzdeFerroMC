@@ -24,7 +24,12 @@ namespace CF_Secretaria
             cbFaccao.ValueMember = "FaccaoID";
 
             //LISTA DE AVISOS            
-            grAvisos.DataSource = oListAvisos;            
+            grAvisos.DataSource = oListAvisos;
+
+            //POPULANDO OS EVENTOS ATUAIS E PASSADOS 
+            grEventosPassados.DataSource = new EventoDAO().GetAllEventosByMes(dtReuniao.Value.Month - 1);
+            grEventosProximos.DataSource = new EventoDAO().GetAllEventosByMes(dtReuniao.Value.Month);
+
         }
 
         private void btnNovo_Click(object sender, EventArgs e)
@@ -80,7 +85,10 @@ namespace CF_Secretaria
 
         private void btnAvisoCancelar_Click(object sender, EventArgs e)
         {
-
+            //GERENCIANDO OS CONTROLES DE AVISOS
+            rtAvisos.ReadOnly = true;
+            btnAvisoCancelar.Enabled = btnAvisoSalvar.Enabled = false;
+            btnAvisoEditar.Enabled = btnAvisoExcluir.Enabled = btnAvisoNovo.Enabled = true;
         }
 
         private void btnAvisoExcluir_Click(object sender, EventArgs e)
