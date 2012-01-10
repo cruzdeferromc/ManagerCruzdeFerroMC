@@ -16,25 +16,16 @@ namespace CruzdeFerroSecretaria.Library
         /// <param name="oIntegrante">Objeto de Integrante</param>
         public void SalvarIntegrante(Integrante oIntegrante)
         {
-            //Conexao
-            SqlConnection oSqlConnection = new SqlConnection("packet size=4096;persist security info=TRUE;initial catalog=CF_Secretaria;user id=sa;password=123456;data source=LOVIEIRA-PC\\SQL_SOLUTIO42");
-            oSqlConnection.Open();
-
-            SqlCommand oSqlCommand = new SqlCommand();
-
             //Sql de update dos Eventos
             if (oIntegrante.IntegranteID != 0)
             {
-                oSqlCommand = new SqlCommand(String.Format("UPDATE cfIntegrante SET cfIntegranteName = '{0}', cfIntegranteHierarquia = {1}, cfIntegranteCidade = '{2}', cfIntegranteLogradouro = '{3}', cfIntegranteCep = '{4}', cfIntegranteEstado = '{5}', cfIntegranteCelular = '{6}', cfIntegranteTelefone = '{7}', cfIntegranteFoto = '{8}', cfIntegrante_cfFaccaoID = {10}  WHERE cfIntegranteID = {9}", oIntegrante.Name, (short)oIntegrante.Hierarquia, oIntegrante.oEndereco.Cidade, oIntegrante.oEndereco.Logradouro, oIntegrante.oEndereco.CEP, oIntegrante.oEndereco.Estado, oIntegrante.Celular, oIntegrante.Telefone, oIntegrante.Foto, oIntegrante.IntegranteID, oIntegrante.oFaccao.FaccaoID), oSqlConnection);
+                CFConexao.ExecSQL(String.Format("UPDATE cfIntegrante SET cfIntegranteName = '{0}', cfIntegranteHierarquia = {1}, cfIntegranteCidade = '{2}', cfIntegranteLogradouro = '{3}', cfIntegranteCep = '{4}', cfIntegranteEstado = '{5}', cfIntegranteCelular = '{6}', cfIntegranteTelefone = '{7}', cfIntegranteFoto = '{8}', cfIntegrante_cfFaccaoID = {10}  WHERE cfIntegranteID = {9}", oIntegrante.Name, (short)oIntegrante.Hierarquia, oIntegrante.oEndereco.Cidade, oIntegrante.oEndereco.Logradouro, oIntegrante.oEndereco.CEP, oIntegrante.oEndereco.Estado, oIntegrante.Celular, oIntegrante.Telefone, oIntegrante.Foto, oIntegrante.IntegranteID, oIntegrante.oFaccao.FaccaoID));
             }
             //Sql de Inserção dos Eventos
             else
             {
-                oSqlCommand = new SqlCommand(String.Format("INSERT INTO cfIntegrante VALUES('{0}',{1},'{2}','{3}','{4}','{5}','{6}','{7}','{8}',{9})", oIntegrante.Name, (short)oIntegrante.Hierarquia, oIntegrante.oEndereco.Cidade, oIntegrante.oEndereco.Logradouro, oIntegrante.oEndereco.CEP, oIntegrante.oEndereco.Estado, oIntegrante.Celular, oIntegrante.Telefone, oIntegrante.Foto, oIntegrante.oFaccao.FaccaoID), oSqlConnection);
+                CFConexao.ExecSQL(String.Format("INSERT INTO cfIntegrante VALUES('{0}',{1},'{2}','{3}','{4}','{5}','{6}','{7}','{8}',{9})", oIntegrante.Name, (short)oIntegrante.Hierarquia, oIntegrante.oEndereco.Cidade, oIntegrante.oEndereco.Logradouro, oIntegrante.oEndereco.CEP, oIntegrante.oEndereco.Estado, oIntegrante.Celular, oIntegrante.Telefone, oIntegrante.Foto, oIntegrante.oFaccao.FaccaoID));
             }
-            oSqlCommand.ExecuteNonQuery();
-
-            oSqlConnection.Close();
         }
 
         /// <summary>
@@ -44,13 +35,7 @@ namespace CruzdeFerroSecretaria.Library
         /// <returns>Lista de Integrantes Retornados</returns>
         public List<Integrante> GetAllIntegrantes()
         {
-            //Conexao
-            SqlConnection oSqlConnection = new SqlConnection("packet size=4096;persist security info=TRUE;initial catalog=CF_Secretaria;user id=sa;password=123456;data source=LOVIEIRA-PC\\SQL_SOLUTIO42");
-            oSqlConnection.Open();
-
-            //Sql de busca dos Integrantes
-            SqlCommand oSqlCommand = new SqlCommand("SELECT * FROM cfIntegrante", oSqlConnection);
-            SqlDataReader oReader = oSqlCommand.ExecuteReader();
+            SqlDataReader oReader = CFConexao.ExecuteSelect("SELECT * FROM cfIntegrante");
 
             //Retornando os Integrantes
             List<Integrante> oListIntegrantes = new List<Integrante>();
@@ -75,7 +60,7 @@ namespace CruzdeFerroSecretaria.Library
             }
 
             oReader.Close();
-            oSqlConnection.Close();
+            CFConexao.Conexao.Close();
 
             return oListIntegrantes;
         }
@@ -87,13 +72,8 @@ namespace CruzdeFerroSecretaria.Library
         /// <returns>Lista de Integrantes Retornados</returns>
         public List<Integrante> GetAllIntegrantesbyFaccao(int faccaoid)
         {
-            //Conexao
-            SqlConnection oSqlConnection = new SqlConnection("packet size=4096;persist security info=TRUE;initial catalog=CF_Secretaria;user id=sa;password=123456;data source=LOVIEIRA-PC\\SQL_SOLUTIO42");
-            oSqlConnection.Open();
-
             //Sql de busca dos Integrantes
-            SqlCommand oSqlCommand = new SqlCommand(string.Format("SELECT * FROM cfIntegrante WHERE cfIntegrante_cfFaccaoID = {0}", faccaoid), oSqlConnection);
-            SqlDataReader oReader = oSqlCommand.ExecuteReader();
+            SqlDataReader oReader = CFConexao.ExecuteSelect(string.Format("SELECT * FROM cfIntegrante WHERE cfIntegrante_cfFaccaoID = {0}", faccaoid));
 
             //Retornando os Integrantes
             List<Integrante> oListIntegrantes = new List<Integrante>();
@@ -118,7 +98,7 @@ namespace CruzdeFerroSecretaria.Library
             }
 
             oReader.Close();
-            oSqlConnection.Close();
+            CFConexao.Conexao.Close();
 
             return oListIntegrantes;
         }
@@ -130,16 +110,8 @@ namespace CruzdeFerroSecretaria.Library
         /// <param name="oIntegrante">Objeto de Integrante</param>
         public void ExcluirIntegrante(Integrante oIntegrante)
         {
-            //Conexao
-            SqlConnection oSqlConnection = new SqlConnection("packet size=4096;persist security info=TRUE;initial catalog=CF_Secretaria;user id=sa;password=123456;data source=LOVIEIRA-PC\\SQL_SOLUTIO42");
-            oSqlConnection.Open();
-
             //Sql de excluir dos Integrantes
-            SqlCommand oSqlCommand = new SqlCommand(String.Format("DELETE FROM cfIntegrante WHERE cfIntegranteID = {0}", oIntegrante.IntegranteID), oSqlConnection);
-
-            oSqlCommand.ExecuteNonQuery();
-
-            oSqlConnection.Close();
+            CFConexao.ExecSQL(String.Format("DELETE FROM cfIntegrante WHERE cfIntegranteID = {0}", oIntegrante.IntegranteID));
         }
         #endregion
     }
