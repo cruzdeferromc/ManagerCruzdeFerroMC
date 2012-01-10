@@ -16,25 +16,16 @@ namespace CruzdeFerroSecretaria.Library
         /// <param name="oEvento">Objeto de Evento</param>
         public void SalvarEvento(Evento oEvento)
         {
-            //Conexao
-            SqlConnection oSqlConnection = new SqlConnection("packet size=4096;persist security info=TRUE;initial catalog=CF_Secretaria;user id=sa;password=123456;data source=LOVIEIRA-PC\\SQL_SOLUTIO42");
-            oSqlConnection.Open();
-
-            SqlCommand oSqlCommand = new SqlCommand();
-
             //Sql de update dos Eventos
             if (oEvento.EventoID != 0)
             {
-                oSqlCommand = new SqlCommand(String.Format("UPDATE cfEvento SET cfEventoMotoClube = '{0}', cfEventoDataFim = '{1}', cfEventoDataInicio = '{2}',cfEventoCidade = '{4}',cfEventoLogradouro = '{5}',cfEventoCep = '{6}',cfEventoEstado = '{7}',cfEventoEntrada = '{8}'WHERE cfEventoID = {3}", oEvento.MotoClube, oEvento.DataFim.ToString("dd/MM/yyyy"), oEvento.DataInicio.ToString("dd/MM/yyyy"), oEvento.EventoID, oEvento.oEndereco.Cidade, oEvento.oEndereco.Logradouro, oEvento.oEndereco.CEP, oEvento.oEndereco.Estado, oEvento.Entrada), oSqlConnection);
+                CFConexao.ExecSQL(String.Format("UPDATE cfEvento SET cfEventoMotoClube = '{0}', cfEventoDataFim = '{1}', cfEventoDataInicio = '{2}',cfEventoCidade = '{4}',cfEventoLogradouro = '{5}',cfEventoCep = '{6}',cfEventoEstado = '{7}',cfEventoEntrada = '{8}'WHERE cfEventoID = {3}", oEvento.MotoClube, oEvento.DataFim.ToString("dd/MM/yyyy"), oEvento.DataInicio.ToString("dd/MM/yyyy"), oEvento.EventoID, oEvento.oEndereco.Cidade, oEvento.oEndereco.Logradouro, oEvento.oEndereco.CEP, oEvento.oEndereco.Estado, oEvento.Entrada));
             }
             //Sql de Inserção dos Eventos
             else 
             {
-                oSqlCommand = new SqlCommand(String.Format("INSERT INTO cfEvento VALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}')", oEvento.MotoClube, oEvento.DataInicio.ToString("dd/MM/yyyy"), oEvento.DataFim.ToString("dd/MM/yyyy"), oEvento.oEndereco.Cidade, oEvento.oEndereco.Logradouro, oEvento.oEndereco.CEP, oEvento.oEndereco.Estado, oEvento.Entrada), oSqlConnection);
+                CFConexao.ExecSQL(String.Format("INSERT INTO cfEvento VALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}')", oEvento.MotoClube, oEvento.DataInicio.ToString("dd/MM/yyyy"), oEvento.DataFim.ToString("dd/MM/yyyy"), oEvento.oEndereco.Cidade, oEvento.oEndereco.Logradouro, oEvento.oEndereco.CEP, oEvento.oEndereco.Estado, oEvento.Entrada));
             }
-            oSqlCommand.ExecuteNonQuery();
-
-            oSqlConnection.Close();
         }
 
         /// <summary>
@@ -44,13 +35,8 @@ namespace CruzdeFerroSecretaria.Library
         /// <returns>Lista de Eventos Retornados</returns>
         public List<Evento> GetAllEventos()
         {
-            //Conexao
-            SqlConnection oSqlConnection = new SqlConnection("packet size=4096;persist security info=TRUE;initial catalog=CF_Secretaria;user id=sa;password=123456;data source=LOVIEIRA-PC\\SQL_SOLUTIO42");
-            oSqlConnection.Open();
-            
             //Sql de busca dos Eventos
-            SqlCommand oSqlCommand = new SqlCommand("SELECT * FROM cfEvento", oSqlConnection);
-            SqlDataReader oReader = oSqlCommand.ExecuteReader();
+            SqlDataReader oReader = CFConexao.ExecuteSelect("SELECT * FROM cfEvento");
 
             //Retornando os Eventos
             List<Evento> oListEventos = new List<Evento>();
@@ -73,7 +59,7 @@ namespace CruzdeFerroSecretaria.Library
             }
 
             oReader.Close();
-            oSqlConnection.Close();
+            CFConexao.Conexao.Close();
 
             return oListEventos;
         }
@@ -85,69 +71,8 @@ namespace CruzdeFerroSecretaria.Library
         /// <param name="oEvento">Objeto de Evento</param>
         public void ExcluirEvento(Evento oEvento)
         {
-            //Conexao
-            SqlConnection oSqlConnection = new SqlConnection("packet size=4096;persist security info=TRUE;initial catalog=CF_Secretaria;user id=sa;password=123456;data source=LOVIEIRA-PC\\SQL_SOLUTIO42");
-            oSqlConnection.Open();
-
             //Sql de excluir dos Eventos
-            SqlCommand oSqlCommand = new SqlCommand(String.Format("DELETE FROM cfEvento WHERE cfEventoID = {0}", oEvento.EventoID), oSqlConnection);
-
-            oSqlCommand.ExecuteNonQuery();
-
-            oSqlConnection.Close();
-        }
-
-        /// <summary>
-        /// EVENTOS
-        /// Get Eventos by Month
-        /// </summary>
-        /// <returns>Lista de Eventos Retornados</returns>
-        public List<Evento> GetAllEventosByMes(int Mes)
-        {
-            int Ano = DateTime.Now.Year;
-
-            if (Mes < 1)
-            {
-                Mes = 12;
-                Ano = DateTime.Now.Year - 1;
-            }
-
-            //Data Inicial
-            string DataInicial = "01/" + Mes.ToString() + "/" + Ano;
-            string DataFinal = "30/" + Mes.ToString() + "/" + Ano;
-
-            //Conexao
-            SqlConnection oSqlConnection = new SqlConnection("packet size=4096;persist security info=TRUE;initial catalog=CF_Secretaria;user id=sa;password=123456;data source=LOVIEIRA-PC\\SQL_SOLUTIO42");
-            oSqlConnection.Open();
-
-            //Sql de busca dos Eventos
-            SqlCommand oSqlCommand = new SqlCommand(string.Format("SELECT * FROM cfEvento WHERE cfEventoDataInicio >= '{0}' AND cfEventoDataInicio <= '{1}'", Convert.ToDateTime(DataInicial), Convert.ToDateTime(DataFinal)), oSqlConnection);
-            SqlDataReader oReader = oSqlCommand.ExecuteReader();
-
-            //Retornando os Eventos
-            List<Evento> oListEventos = new List<Evento>();
-            while (oReader.Read())
-            {
-                Evento oEvento = new Evento();
-                oEvento.oEndereco = new Endereco();
-                oEvento.DataInicio = Convert.ToDateTime(oReader["cfEventoDataInicio"].ToString());
-                oEvento.DataFim = Convert.ToDateTime(oReader["cfEventoDataFim"].ToString());
-                oEvento.EventoID = Convert.ToInt32(oReader["cfEventoID"].ToString());
-                oEvento.MotoClube = oReader["cfEventoMotoClube"].ToString();
-                oEvento.Entrada = oReader["cfEventoEntrada"].ToString();
-                oEvento.oEndereco.CEP = oReader["cfEventoCep"].ToString();
-                oEvento.oEndereco.Cidade = oReader["cfEventoCidade"].ToString();
-                oEvento.oEndereco.Estado = oReader["cfEventoEstado"].ToString();
-                oEvento.oEndereco.Logradouro = oReader["cfEventoLogradouro"].ToString();
-
-
-                oListEventos.Add(oEvento);
-            }
-
-            oReader.Close();
-            oSqlConnection.Close();
-
-            return oListEventos;
+            CFConexao.ExecSQL(String.Format("DELETE FROM cfEvento WHERE cfEventoID = {0}", oEvento.EventoID));
         }
         #endregion
     }
