@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Data;
 using System.Data.SqlClient;
 
 namespace CruzdeFerroSecretaria.Library
@@ -10,7 +11,7 @@ namespace CruzdeFerroSecretaria.Library
     {
         private const String UserId = "";
         private const String Password = "";
-        private const String Database = "36Manager_testes";
+        private const String Database = "36Manager";
         private const String DataSource = "(local)";
         
         // Para Windows Authentication Mode, user "Trusted_Connection=Yes";
@@ -27,7 +28,11 @@ namespace CruzdeFerroSecretaria.Library
                 oSqlConnection = new SqlConnection(ConnectionString);
             }
 
-            oSqlConnection.Open();
+            if (oSqlConnection.State == ConnectionState.Closed)
+            {
+                oSqlConnection.Open();
+            }
+
             return oSqlConnection;
         }
 
